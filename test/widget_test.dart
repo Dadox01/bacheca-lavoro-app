@@ -29,9 +29,9 @@ const _jobJson = {
 class _FakeCvPicker implements CvPicker {
   @override
   Future<PickedCv?> pickPdf() async => PickedCv(
-        'curriculum_mario.pdf',
-        Uint8List.fromList(utf8.encode('%PDF-1.4\n% test\n')),
-      );
+    'curriculum_mario.pdf',
+    Uint8List.fromList(utf8.encode('%PDF-1.4\n% test\n')),
+  );
 }
 
 class _NoCvPicker implements CvPicker {
@@ -40,22 +40,24 @@ class _NoCvPicker implements CvPicker {
 }
 
 Widget _app(MockClient client, {CvPicker? picker}) => BachecaLavoroApp(
-      api: ApiClient(client: client),
-      cvPicker: picker ?? _NoCvPicker(),
-    );
+  api: ApiClient(client: client),
+  cvPicker: picker ?? _NoCvPicker(),
+);
 
 http.Response _json(Object body, {int status = 200}) => http.Response(
-      jsonEncode(body),
-      status,
-      headers: {'content-type': 'application/json; charset=utf-8'},
-    );
+  jsonEncode(body),
+  status,
+  headers: {'content-type': 'application/json; charset=utf-8'},
+);
 
 void main() {
   setUp(() {
     SharedPreferences.setMockInitialValues({});
   });
 
-  testWidgets('la bacheca pubblica mostra gli annunci del server', (tester) async {
+  testWidgets('la bacheca pubblica mostra gli annunci del server', (
+    tester,
+  ) async {
     final client = MockClient((request) async {
       if (request.url.path == '/api/jobs') return _json([_jobJson]);
       return _json({'error': 'rotta non prevista'}, status: 404);
@@ -70,12 +72,13 @@ void main() {
     expect(find.text('Milano'), findsOneWidget);
   });
 
-  testWidgets('server irraggiungibile: messaggio di errore e Riprova',
-      (tester) async {
-    final client = MockClient((request) async => _json(
-          {'error': 'Impossibile contattare il server.'},
-          status: 500,
-        ));
+  testWidgets('server irraggiungibile: messaggio di errore e Riprova', (
+    tester,
+  ) async {
+    final client = MockClient(
+      (request) async =>
+          _json({'error': 'Impossibile contattare il server.'}, status: 500),
+    );
 
     await tester.pumpWidget(_app(client));
     await tester.pumpAndSettle();
@@ -84,8 +87,9 @@ void main() {
     expect(find.widgetWithText(OutlinedButton, 'Riprova'), findsOneWidget);
   });
 
-  testWidgets('login azienda con credenziali errate mostra il messaggio',
-      (tester) async {
+  testWidgets('login azienda con credenziali errate mostra il messaggio', (
+    tester,
+  ) async {
     final client = MockClient((request) async {
       if (request.url.path == '/api/jobs') return _json([_jobJson]);
       if (request.url.path == '/api/auth/login') {
@@ -101,7 +105,10 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Accedi come azienda'), findsOneWidget);
 
-    await tester.enterText(find.byType(TextFormField).at(0), 'azienda@example.com');
+    await tester.enterText(
+      find.byType(TextFormField).at(0),
+      'azienda@example.com',
+    );
     await tester.enterText(find.byType(TextFormField).at(1), 'Password1');
     await tester.tap(find.widgetWithText(FilledButton, 'Accedi'));
     await tester.pumpAndSettle();
@@ -109,15 +116,19 @@ void main() {
     expect(find.text('Email o password non corretti'), findsOneWidget);
   });
 
-  testWidgets('candidatura: richiede il curriculum e poi conferma l\'invio',
-      (tester) async {
+  testWidgets('candidatura: richiede il curriculum e poi conferma l\'invio', (
+    tester,
+  ) async {
     var uploaded = false;
     final client = MockClient((request) async {
       if (request.url.path == '/api/jobs') return _json([_jobJson]);
       if (request.method == 'POST' &&
           request.url.path == '/api/jobs/1/applications') {
         uploaded = true;
-        expect(request.headers['content-type'], contains('multipart/form-data'));
+        expect(
+          request.headers['content-type'],
+          contains('multipart/form-data'),
+        );
         final body = utf8.decode(request.bodyBytes, allowMalformed: true);
         expect(body, contains('Mario'));
         expect(body, contains('curriculum_mario.pdf'));
@@ -133,12 +144,17 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Descrizione'), findsOneWidget);
 
-    await tester.tap(find.widgetWithText(FilledButton, 'Candidati a questo annuncio'));
+    await tester.tap(
+      find.widgetWithText(FilledButton, 'Candidati a questo annuncio'),
+    );
     await tester.pumpAndSettle();
 
     await tester.enterText(find.byType(TextFormField).at(0), 'Mario');
     await tester.enterText(find.byType(TextFormField).at(1), 'Rossi');
-    await tester.enterText(find.byType(TextFormField).at(2), 'mario.rossi@example.com');
+    await tester.enterText(
+      find.byType(TextFormField).at(2),
+      'mario.rossi@example.com',
+    );
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pumpAndSettle();
 

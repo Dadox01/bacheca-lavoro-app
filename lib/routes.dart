@@ -75,13 +75,22 @@ class Routes {
         if (job is Job) {
           return _page(settings, JobApplicationsScreen(job: job));
         }
-        return _page(const RouteSettings(name: company), const CompanyHomeScreen());
+        return _page(
+          const RouteSettings(name: company),
+          const CompanyHomeScreen(),
+        );
       case applicationDetail:
         final application = settings.arguments;
         if (application is Application) {
-          return _page(settings, ApplicationDetailScreen(application: application));
+          return _page(
+            settings,
+            ApplicationDetailScreen(application: application),
+          );
         }
-        return _page(const RouteSettings(name: company), const CompanyHomeScreen());
+        return _page(
+          const RouteSettings(name: company),
+          const CompanyHomeScreen(),
+        );
       case jobs:
       default:
         return _page(const RouteSettings(name: jobs), const JobsScreen());

@@ -71,13 +71,13 @@ class _ApplyScreenState extends State<ApplyScreen> {
     });
     try {
       await context.read<ApiClient>().applyToJob(
-            widget.job.id,
-            firstName: _firstName.text.trim(),
-            lastName: _lastName.text.trim(),
-            email: _email.text.trim(),
-            message: _message.text.trim(),
-            cv: _cv!,
-          );
+        widget.job.id,
+        firstName: _firstName.text.trim(),
+        lastName: _lastName.text.trim(),
+        email: _email.text.trim(),
+        message: _message.text.trim(),
+        cv: _cv!,
+      );
       if (!mounted) return;
       // Il pulsante torna normale: da qui in poi parla il dialog di conferma.
       setState(() => _submitting = false);
@@ -103,8 +103,11 @@ class _ApplyScreenState extends State<ApplyScreen> {
       context: context,
       barrierDismissible: false,
       builder: (ctx) => AlertDialog(
-        icon: Icon(Icons.check_circle_outline,
-            color: theme.colorScheme.primary, size: 44),
+        icon: Icon(
+          Icons.check_circle_outline,
+          color: theme.colorScheme.primary,
+          size: 44,
+        ),
         title: const Text('Candidatura inviata'),
         content: Text(
           'La tua candidatura per "${widget.job.title}" è stata registrata. '
@@ -133,14 +136,16 @@ class _ApplyScreenState extends State<ApplyScreen> {
           children: [
             Text(
               widget.job.title,
-              style: theme.textTheme.titleLarge
-                  ?.copyWith(fontWeight: FontWeight.w700),
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
               '${widget.job.companyName} · ${widget.job.location}',
-              style: theme.textTheme.bodyMedium
-                  ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: 24),
             if (_error != null) InlineError(message: _error!),
@@ -149,8 +154,8 @@ class _ApplyScreenState extends State<ApplyScreen> {
               textInputAction: TextInputAction.next,
               textCapitalization: TextCapitalization.words,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (v) => Validators.requiredText(v, 'il nome',
-                  min: 2, max: 40),
+              validator: (v) =>
+                  Validators.requiredText(v, 'il nome', min: 2, max: 40),
               decoration: const InputDecoration(
                 labelText: 'Nome',
                 prefixIcon: Icon(Icons.person_outline),
@@ -162,8 +167,8 @@ class _ApplyScreenState extends State<ApplyScreen> {
               textInputAction: TextInputAction.next,
               textCapitalization: TextCapitalization.words,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (v) => Validators.requiredText(v, 'il cognome',
-                  min: 2, max: 40),
+              validator: (v) =>
+                  Validators.requiredText(v, 'il cognome', min: 2, max: 40),
               decoration: const InputDecoration(
                 labelText: 'Cognome',
                 prefixIcon: Icon(Icons.badge_outlined),
@@ -197,8 +202,9 @@ class _ApplyScreenState extends State<ApplyScreen> {
             const SizedBox(height: 8),
             Text(
               'Curriculum',
-              style: theme.textTheme.titleSmall
-                  ?.copyWith(fontWeight: FontWeight.w700),
+              style: theme.textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
             ),
             const SizedBox(height: 8),
             _CvPickerCard(
@@ -216,14 +222,17 @@ class _ApplyScreenState extends State<ApplyScreen> {
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
                   : const Icon(Icons.send_outlined),
-              label: Text(_submitting ? 'Invio in corso…' : 'Invia candidatura'),
+              label: Text(
+                _submitting ? 'Invio in corso…' : 'Invia candidatura',
+              ),
             ),
             const SizedBox(height: 8),
             Text(
               'Il curriculum deve essere un PDF di massimo 5 MB.',
               textAlign: TextAlign.center,
-              style: theme.textTheme.bodySmall
-                  ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ),
           ],
         ),
@@ -252,7 +261,9 @@ class _CvPickerCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             color: hasFile
                 ? theme.colorScheme.primaryContainer.withValues(alpha: 0.45)
-                : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+                : theme.colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.4,
+                  ),
             border: Border.all(
               color: error != null
                   ? theme.colorScheme.error
@@ -276,12 +287,15 @@ class _CvPickerCard extends StatelessWidget {
                       hasFile ? cv!.fileName : 'Nessun file selezionato',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.w600),
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      hasFile ? Fmt.fileSize(cv!.size) : 'Formato PDF, max 5 MB',
+                      hasFile
+                          ? Fmt.fileSize(cv!.size)
+                          : 'Formato PDF, max 5 MB',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -301,8 +315,9 @@ class _CvPickerCard extends StatelessWidget {
             padding: const EdgeInsets.only(top: 6, left: 4),
             child: Text(
               error!,
-              style: theme.textTheme.bodySmall
-                  ?.copyWith(color: theme.colorScheme.error),
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.error,
+              ),
             ),
           ),
       ],

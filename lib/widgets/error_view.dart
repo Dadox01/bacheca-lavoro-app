@@ -18,15 +18,17 @@ class ErrorView extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             'Qualcosa è andato storto',
-            style: theme.textTheme.titleMedium
-                ?.copyWith(fontWeight: FontWeight.w700),
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           Text(
             message,
-            style: theme.textTheme.bodyMedium
-                ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
             textAlign: TextAlign.center,
           ),
           if (onRetry != null) ...[
@@ -35,9 +37,7 @@ class ErrorView extends StatelessWidget {
               onPressed: onRetry,
               icon: const Icon(Icons.refresh),
               label: const Text('Riprova'),
-              style: OutlinedButton.styleFrom(
-                minimumSize: const Size(160, 44),
-              ),
+              style: OutlinedButton.styleFrom(minimumSize: const Size(160, 44)),
             ),
           ],
         ],

@@ -12,9 +12,9 @@ class Company {
   });
 
   factory Company.fromJson(Map<String, dynamic> j) => Company(
-        id: j['id'] as int,
-        name: j['name'] as String,
-        email: j['email'] as String,
-        createdAt: (j['createdAt'] as String?) ?? '',
-      );
+    id: j['id'] as int,
+    name: j['name'] as String,
+    email: j['email'] as String,
+    createdAt: (j['createdAt'] as String?) ?? '',
+  );
 }

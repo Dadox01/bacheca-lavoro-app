@@ -22,9 +22,9 @@ class ApplicationDetailScreen extends StatelessWidget {
     } catch (_) {
       messenger
         ..hideCurrentSnackBar()
-        ..showSnackBar(const SnackBar(
-          content: Text('Impossibile aprire il curriculum.'),
-        ));
+        ..showSnackBar(
+          const SnackBar(content: Text('Impossibile aprire il curriculum.')),
+        );
     }
   }
 
@@ -56,14 +56,16 @@ class ApplicationDetailScreen extends StatelessWidget {
                   children: [
                     Text(
                       application.fullName,
-                      style: theme.textTheme.titleLarge
-                          ?.copyWith(fontWeight: FontWeight.w700),
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Text(
                       application.email,
-                      style: theme.textTheme.bodyMedium
-                          ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
                     ),
                   ],
                 ),
@@ -75,10 +77,7 @@ class ApplicationDetailScreen extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children: [
-              _MetaPill(
-                icon: Icons.work_outline,
-                label: application.jobTitle,
-              ),
+              _MetaPill(icon: Icons.work_outline, label: application.jobTitle),
               _MetaPill(
                 icon: Icons.schedule,
                 label: 'Inviata il ${Fmt.dateTime(application.createdAt)}',
@@ -88,8 +87,9 @@ class ApplicationDetailScreen extends StatelessWidget {
           const Divider(height: 32),
           Text(
             'Lettera di presentazione',
-            style: theme.textTheme.titleMedium
-                ?.copyWith(fontWeight: FontWeight.w700),
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const SizedBox(height: 8),
           Text(
@@ -101,8 +101,9 @@ class ApplicationDetailScreen extends StatelessWidget {
           const SizedBox(height: 28),
           Text(
             'Curriculum',
-            style: theme.textTheme.titleMedium
-                ?.copyWith(fontWeight: FontWeight.w700),
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
           ),
           const SizedBox(height: 10),
           Card(
@@ -116,8 +117,10 @@ class ApplicationDetailScreen extends StatelessWidget {
                       color: theme.colorScheme.errorContainer,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Icon(Icons.picture_as_pdf,
-                        color: theme.colorScheme.error),
+                    child: Icon(
+                      Icons.picture_as_pdf,
+                      color: theme.colorScheme.error,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -128,14 +131,16 @@ class ApplicationDetailScreen extends StatelessWidget {
                           application.cvName,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodyMedium
-                              ?.copyWith(fontWeight: FontWeight.w600),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         const SizedBox(height: 2),
                         Text(
                           'PDF · ${Fmt.fileSize(application.cvSize)}',
                           style: theme.textTheme.bodySmall?.copyWith(
-                              color: theme.colorScheme.onSurfaceVariant),
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
                         ),
                       ],
                     ),
@@ -154,8 +159,9 @@ class ApplicationDetailScreen extends StatelessWidget {
           Text(
             'Il PDF si apre nel visualizzatore del dispositivo, con accesso riservato alla tua azienda.',
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodySmall
-                ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
           ),
         ],
       ),

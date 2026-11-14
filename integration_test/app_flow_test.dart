@@ -19,15 +19,16 @@ import 'package:http/http.dart' as http;
 import 'package:integration_test/integration_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String _cvContent = '%PDF-1.4\n1 0 obj<</Type/Catalog>>endobj\n'
+const String _cvContent =
+    '%PDF-1.4\n1 0 obj<</Type/Catalog>>endobj\n'
     'trailer<</Root 1 0 R>>\n%%EOF\n';
 
 class _TestCvPicker implements CvPicker {
   @override
   Future<PickedCv?> pickPdf() async => PickedCv(
-        'Curriculum_Mario_Rossi.pdf',
-        Uint8List.fromList(utf8.encode(_cvContent)),
-      );
+    'Curriculum_Mario_Rossi.pdf',
+    Uint8List.fromList(utf8.encode(_cvContent)),
+  );
 }
 
 Future<void> waitFor(
@@ -47,7 +48,10 @@ Future<void> waitFor(
   throw TestFailure('Non è comparso: $finder');
 }
 
-Future<void> shot(IntegrationTestWidgetsFlutterBinding binding, String name) async {
+Future<void> shot(
+  IntegrationTestWidgetsFlutterBinding binding,
+  String name,
+) async {
   try {
     await binding.takeScreenshot(name);
   } catch (e) {
@@ -96,15 +100,20 @@ void main() {
     await tester.enterText(find.byType(TextFormField).at(0), jobTitle);
     await tester.enterText(find.byType(TextFormField).at(1), 'Milano (ibrido)');
     await tester.enterText(
-        find.byType(TextFormField).at(2), '30.000 - 38.000 EUR');
+      find.byType(TextFormField).at(2),
+      '30.000 - 38.000 EUR',
+    );
     await tester.enterText(
       find.byType(TextFormField).at(3),
       'Cerchiamo una persona per sviluppare applicazioni mobile in Flutter '
       'con un backend Dart. Si lavora in team agile, due giorni di remoto.',
     );
     await shot(binding, '05_nuovo_annuncio');
-    await tester.scrollUntilVisible(find.text('Pubblica annuncio'), 200,
-        scrollable: find.byType(Scrollable).first);
+    await tester.scrollUntilVisible(
+      find.text('Pubblica annuncio'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(find.text('Pubblica annuncio'));
 
     await waitFor(tester, find.text('I tuoi annunci'));
@@ -132,20 +141,28 @@ void main() {
     await tester.enterText(find.byType(TextFormField).at(0), 'Mario');
     await tester.enterText(find.byType(TextFormField).at(1), 'Rossi');
     await tester.enterText(
-        find.byType(TextFormField).at(2), 'mario.rossi@example.com');
+      find.byType(TextFormField).at(2),
+      'mario.rossi@example.com',
+    );
     await tester.enterText(
       find.byType(TextFormField).at(3),
       'Sono uno sviluppatore Flutter con tre anni di esperienza. '
       'Allego il curriculum e resto a disposizione per un colloquio.',
     );
-    await tester.scrollUntilVisible(find.text('Scegli file'), 200,
-        scrollable: find.byType(Scrollable).first);
+    await tester.scrollUntilVisible(
+      find.text('Scegli file'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(find.text('Scegli file'));
     await waitFor(tester, find.text('Curriculum_Mario_Rossi.pdf'));
     await shot(binding, '09_candidatura_compilata');
 
-    await tester.scrollUntilVisible(find.text('Invia candidatura'), 200,
-        scrollable: find.byType(Scrollable).first);
+    await tester.scrollUntilVisible(
+      find.text('Invia candidatura'),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     await tester.tap(find.text('Invia candidatura'));
     await waitFor(tester, find.text('Candidatura inviata'));
     await shot(binding, '10_conferma_candidatura');
@@ -154,12 +171,15 @@ void main() {
 
     // La candidatura è davvero sul server: si verifica via API.
     final jobs = (await api.get('/api/jobs') as List);
-    final jobId = (jobs
-            .firstWhere((j) => (j as Map)['title'] == jobTitle) as Map)['id']
-        as int;
+    final jobId =
+        (jobs.firstWhere((j) => (j as Map)['title'] == jobTitle) as Map)['id']
+            as int;
     final detail = await api.get('/api/jobs/$jobId') as Map;
-    expect(detail['applicationsCount'], isNull,
-        reason: 'la bacheca pubblica non espone il numero di candidature');
+    expect(
+      detail['applicationsCount'],
+      isNull,
+      reason: 'la bacheca pubblica non espone il numero di candidature',
+    );
 
     // ---------------------------------------------------------------- S3
     // Login azienda (R2) e consultazione candidature (R7)

@@ -49,9 +49,10 @@ class _JobsScreenState extends State<JobsScreen> {
       });
     }
     try {
-      final data = await context
-          .read<ApiClient>()
-          .get('/api/jobs', query: {'q': _search.text.trim()});
+      final data = await context.read<ApiClient>().get(
+        '/api/jobs',
+        query: {'q': _search.text.trim()},
+      );
       if (!mounted) return;
       setState(() {
         _jobs = (data as List)
@@ -98,8 +99,9 @@ class _JobsScreenState extends State<JobsScreen> {
         title: const Text('Bacheca Lavoro'),
         actions: [
           TextButton.icon(
-            onPressed: () => Navigator.of(context).pushNamed(
-                auth.isLoggedIn ? Routes.company : Routes.login),
+            onPressed: () =>
+                Navigator.of(context)
+                    .pushNamed(auth.isLoggedIn ? Routes.company : Routes.login),
             icon: const Icon(Icons.business_center_outlined, size: 18),
             label: Text(auth.isLoggedIn ? 'Area aziende' : 'Accedi'),
           ),
@@ -117,7 +119,10 @@ class _JobsScreenState extends State<JobsScreen> {
               subtitle: _jobs == null
                   ? 'Annunci delle aziende iscritte'
                   : Fmt.plural(
-                      _jobs!.length, 'annuncio pubblicato', 'annunci pubblicati'),
+                      _jobs!.length,
+                      'annuncio pubblicato',
+                      'annunci pubblicati',
+                    ),
             ),
             const SizedBox(height: 16),
             TextField(
@@ -171,8 +176,7 @@ class _JobsScreenState extends State<JobsScreen> {
         EmptyState(
           icon: Icons.search_off,
           title: 'Nessun annuncio trovato',
-          message:
-              'Non ci sono annunci che corrispondono alla ricerca. Prova con un altro termine.',
+          message: 'Non ci sono annunci che corrispondono alla ricerca. Prova con un altro termine.',
         ),
       ];
     }
@@ -206,14 +210,16 @@ class _CompanyCta extends StatelessWidget {
                 children: [
                   Text(
                     'Sei un\'azienda?',
-                    style: theme.textTheme.titleSmall
-                        ?.copyWith(fontWeight: FontWeight.w700),
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     'Accedi per pubblicare annunci e consultare le candidature.',
-                    style: theme.textTheme.bodySmall
-                        ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
                 ],
               ),

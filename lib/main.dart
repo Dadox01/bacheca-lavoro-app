@@ -42,8 +42,10 @@ class _BachecaLavoroAppState extends State<BachecaLavoroApp> {
   void _onAuthChanged() {
     if (_auth.sessionExpired) {
       _auth.sessionExpired = false;
-      _navigatorKey.currentState
-          ?.pushNamedAndRemoveUntil(Routes.login, (r) => false);
+      _navigatorKey.currentState?.pushNamedAndRemoveUntil(
+        Routes.login,
+        (r) => false,
+      );
     }
   }
 

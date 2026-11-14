@@ -49,19 +49,22 @@ class _JobFormScreenState extends State<JobFormScreen> {
       _error = null;
     });
     try {
-      await context.read<ApiClient>().post('/api/jobs', body: {
-        'title': _title.text.trim(),
-        'description': _description.text.trim(),
-        'location': _location.text.trim(),
-        'contract': _contract,
-        'salary': _salary.text.trim(),
-      });
+      await context.read<ApiClient>().post(
+        '/api/jobs',
+        body: {
+          'title': _title.text.trim(),
+          'description': _description.text.trim(),
+          'location': _location.text.trim(),
+          'contract': _contract,
+          'salary': _salary.text.trim(),
+        },
+      );
       if (!mounted) return;
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
-        ..showSnackBar(const SnackBar(
-          content: Text('Annuncio pubblicato nella bacheca.'),
-        ));
+        ..showSnackBar(
+          const SnackBar(content: Text('Annuncio pubblicato nella bacheca.')),
+        );
       Navigator.of(context).pop(true);
     } on ApiException catch (e) {
       if (!mounted) return;
@@ -90,14 +93,16 @@ class _JobFormScreenState extends State<JobFormScreen> {
           children: [
             Text(
               'Descrivi la posizione',
-              style: theme.textTheme.titleLarge
-                  ?.copyWith(fontWeight: FontWeight.w700),
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
             ),
             const SizedBox(height: 4),
             Text(
               'L\'annuncio sarà visibile subito a tutti i candidati.',
-              style: theme.textTheme.bodyMedium
-                  ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: 24),
             if (_error != null) InlineError(message: _error!),
@@ -166,13 +171,15 @@ class _JobFormScreenState extends State<JobFormScreen> {
               textCapitalization: TextCapitalization.sentences,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (v) => Validators.requiredText(
-                  v, 'la descrizione',
-                  min: 10, max: 3000),
+                v,
+                'la descrizione',
+                min: 10,
+                max: 3000,
+              ),
               decoration: const InputDecoration(
                 labelText: 'Descrizione',
                 alignLabelWithHint: true,
-                hintText:
-                    'Mansioni, requisiti, modalità di lavoro, benefit…',
+                hintText: 'Mansioni, requisiti, modalità di lavoro, benefit…',
               ),
             ),
             const SizedBox(height: 16),

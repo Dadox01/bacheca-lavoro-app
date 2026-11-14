@@ -19,14 +19,18 @@ class InlineError extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.error_outline,
-              size: 20, color: theme.colorScheme.onErrorContainer),
+          Icon(
+            Icons.error_outline,
+            size: 20,
+            color: theme.colorScheme.onErrorContainer,
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
               message,
-              style: theme.textTheme.bodyMedium
-                  ?.copyWith(color: theme.colorScheme.onErrorContainer),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onErrorContainer,
+              ),
             ),
           ),
         ],

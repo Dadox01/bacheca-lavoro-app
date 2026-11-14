@@ -22,14 +22,14 @@ class Job {
   });
 
   factory Job.fromJson(Map<String, dynamic> j) => Job(
-        id: j['id'] as int,
-        companyName: (j['companyName'] as String?) ?? '',
-        title: (j['title'] as String?) ?? '',
-        description: (j['description'] as String?) ?? '',
-        location: (j['location'] as String?) ?? '',
-        contract: (j['contract'] as String?) ?? '',
-        salary: j['salary'] as String?,
-        createdAt: (j['createdAt'] as String?) ?? '',
-        applicationsCount: (j['applicationsCount'] as num?)?.toInt() ?? 0,
-      );
+    id: j['id'] as int,
+    companyName: (j['companyName'] as String?) ?? '',
+    title: (j['title'] as String?) ?? '',
+    description: (j['description'] as String?) ?? '',
+    location: (j['location'] as String?) ?? '',
+    contract: (j['contract'] as String?) ?? '',
+    salary: j['salary'] as String?,
+    createdAt: (j['createdAt'] as String?) ?? '',
+    applicationsCount: (j['applicationsCount'] as num?)?.toInt() ?? 0,
+  );
 }

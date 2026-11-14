@@ -44,7 +44,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       _error = null;
     });
     try {
-      await auth.register(_name.text.trim(), _email.text.trim(), _password.text);
+      await auth.register(
+        _name.text.trim(),
+        _email.text.trim(),
+        _password.text,
+      );
       if (!mounted) return;
       Routes.afterLogin(context, widget.returnTo ?? Routes.company);
     } on ApiException catch (e) {
@@ -79,14 +83,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   Text(
                     'Crea l\'account della tua azienda',
-                    style: theme.textTheme.headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.w700),
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     'Con un account puoi pubblicare annunci e vedere chi si candida.',
-                    style: theme.textTheme.bodyMedium
-                        ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
                   const SizedBox(height: 24),
                   if (_error != null) InlineError(message: _error!),
@@ -96,8 +102,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     textCapitalization: TextCapitalization.words,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (v) => Validators.requiredText(
-                        v, 'il nome dell\'azienda',
-                        min: 2, max: 80),
+                      v,
+                      'il nome dell\'azienda',
+                      min: 2,
+                      max: 80,
+                    ),
                     decoration: const InputDecoration(
                       labelText: 'Nome azienda',
                       prefixIcon: Icon(Icons.apartment_outlined),
@@ -129,9 +138,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       prefixIcon: const Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
                         tooltip: _obscure ? 'Mostra' : 'Nascondi',
-                        icon: Icon(_obscure
-                            ? Icons.visibility_outlined
-                            : Icons.visibility_off_outlined),
+                        icon: Icon(
+                          _obscure
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                        ),
                         onPressed: () => setState(() => _obscure = !_obscure),
                       ),
                     ),
@@ -166,7 +177,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ? null
                         : () => Navigator.of(context).pushReplacementNamed(
                             Routes.login,
-                            arguments: widget.returnTo),
+                            arguments: widget.returnTo,
+                          ),
                     child: const Text('Hai già un account? Accedi'),
                   ),
                 ],

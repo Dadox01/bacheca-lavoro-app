@@ -73,7 +73,9 @@ class AuthProvider extends ChangeNotifier {
   Future<void> _setSession(Map json) async {
     final token = json['token'] as String;
     _api.token = token;
-    _company = Company.fromJson(Map<String, dynamic>.from(json['company'] as Map));
+    _company = Company.fromJson(
+      Map<String, dynamic>.from(json['company'] as Map),
+    );
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_tokenKey, token);
     notifyListeners();

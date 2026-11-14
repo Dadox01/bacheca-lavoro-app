@@ -76,26 +76,32 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.primaryContainer
-                          .withValues(alpha: 0.5),
+                      color: theme.colorScheme.primaryContainer.withValues(
+                        alpha: 0.5,
+                      ),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(Icons.business_center_outlined,
-                        size: 34, color: theme.colorScheme.primary),
+                    child: Icon(
+                      Icons.business_center_outlined,
+                      size: 34,
+                      color: theme.colorScheme.primary,
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Text(
                     'Accedi come azienda',
                     textAlign: TextAlign.center,
-                    style: theme.textTheme.headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.w700),
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     'Pubblica annunci e consulta le candidature ricevute.',
                     textAlign: TextAlign.center,
-                    style: theme.textTheme.bodyMedium
-                        ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
                   const SizedBox(height: 28),
                   if (_error != null) InlineError(message: _error!),
@@ -117,17 +123,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: _obscure,
                     textInputAction: TextInputAction.done,
                     onFieldSubmitted: (_) => _submitting ? null : _submit(),
-                    validator: (v) => (v ?? '').isEmpty
-                        ? 'Inserisci la password'
-                        : null,
+                    validator: (v) =>
+                        (v ?? '').isEmpty ? 'Inserisci la password' : null,
                     decoration: InputDecoration(
                       labelText: 'Password',
                       prefixIcon: const Icon(Icons.lock_outline),
                       suffixIcon: IconButton(
                         tooltip: _obscure ? 'Mostra' : 'Nascondi',
-                        icon: Icon(_obscure
-                            ? Icons.visibility_outlined
-                            : Icons.visibility_off_outlined),
+                        icon: Icon(
+                          _obscure
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                        ),
                         onPressed: () => setState(() => _obscure = !_obscure),
                       ),
                     ),
@@ -149,8 +156,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         ? null
                         : () => Navigator.of(context).pushReplacementNamed(
                             Routes.register,
-                            arguments: widget.returnTo),
-                    child: const Text('Non hai un account? Registra la tua azienda'),
+                            arguments: widget.returnTo,
+                          ),
+                    child: const Text(
+                      'Non hai un account? Registra la tua azienda',
+                    ),
                   ),
                   TextButton.icon(
                     onPressed: () => Navigator.of(context).pop(),

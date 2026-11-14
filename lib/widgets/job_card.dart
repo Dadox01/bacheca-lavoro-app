@@ -71,22 +71,28 @@ class JobCard extends StatelessWidget {
                       job.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.titleMedium
-                          ?.copyWith(fontWeight: FontWeight.w700),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),
                   trailing ??
-                      Icon(Icons.chevron_right,
-                          color: theme.colorScheme.onSurfaceVariant),
+                      Icon(
+                        Icons.chevron_right,
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
                 ],
               ),
               if (showCompany) ...[
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    Icon(Icons.business_outlined,
-                        size: 15, color: theme.colorScheme.onSurfaceVariant),
+                    Icon(
+                      Icons.business_outlined,
+                      size: 15,
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
@@ -110,7 +116,10 @@ class JobCard extends StatelessWidget {
                   if (job.location.isNotEmpty)
                     InfoPill(icon: Icons.place_outlined, label: job.location),
                   if (job.contract.isNotEmpty)
-                    InfoPill(icon: Icons.work_history_outlined, label: job.contract),
+                    InfoPill(
+                      icon: Icons.work_history_outlined,
+                      label: job.contract,
+                    ),
                   if (job.salary != null && job.salary!.isNotEmpty)
                     InfoPill(icon: Icons.payments_outlined, label: job.salary!),
                 ],
@@ -118,8 +127,9 @@ class JobCard extends StatelessWidget {
               const SizedBox(height: 12),
               Text(
                 'Pubblicato il ${Fmt.date(job.createdAt)}',
-                style: theme.textTheme.bodySmall
-                    ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
             ],
           ),

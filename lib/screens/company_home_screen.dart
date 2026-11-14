@@ -78,7 +78,8 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
       builder: (ctx) => AlertDialog(
         title: const Text('Uscire dall\'account?'),
         content: const Text(
-            'Per rivedere i tuoi annunci dovrai effettuare di nuovo il login.'),
+          'Per rivedere i tuoi annunci dovrai effettuare di nuovo il login.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
@@ -103,8 +104,10 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
     final theme = Theme.of(context);
     final company = context.watch<AuthProvider>().company;
     final jobs = _jobs ?? const <Job>[];
-    final applications =
-        jobs.fold<int>(0, (sum, j) => sum + j.applicationsCount);
+    final applications = jobs.fold<int>(
+      0,
+      (sum, j) => sum + j.applicationsCount,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -150,7 +153,10 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
                     icon: Icons.people_outline,
                     value: '$applications',
                     label: Fmt.plural(
-                        applications, 'candidatura', 'candidature'),
+                      applications,
+                      'candidatura',
+                      'candidature',
+                    ),
                   ),
                 ),
               ],
@@ -160,8 +166,9 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
               children: [
                 Text(
                   'I tuoi annunci',
-                  style: theme.textTheme.titleMedium
-                      ?.copyWith(fontWeight: FontWeight.w700),
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 const Spacer(),
                 if (_jobs != null)
@@ -198,8 +205,7 @@ class _CompanyHomeScreenState extends State<CompanyHomeScreen> {
         EmptyState(
           icon: Icons.post_add_outlined,
           title: 'Nessun annuncio pubblicato',
-          message:
-              'Pubblica il tuo primo annuncio: comparirà subito nella bacheca pubblica.',
+          message: 'Pubblica il tuo primo annuncio: comparirà subito nella bacheca pubblica.',
           action: FilledButton.icon(
             onPressed: _openNewJob,
             icon: const Icon(Icons.add),
@@ -227,7 +233,11 @@ class _StatCard extends StatelessWidget {
   final String value;
   final String label;
 
-  const _StatCard({required this.icon, required this.value, required this.label});
+  const _StatCard({
+    required this.icon,
+    required this.value,
+    required this.label,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -244,13 +254,15 @@ class _StatCard extends StatelessWidget {
               children: [
                 Text(
                   value,
-                  style: theme.textTheme.titleLarge
-                      ?.copyWith(fontWeight: FontWeight.w700),
+                  style: theme.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
                 Text(
                   label,
-                  style: theme.textTheme.bodySmall
-                      ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),

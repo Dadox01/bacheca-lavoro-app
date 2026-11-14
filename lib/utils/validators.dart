@@ -1,11 +1,17 @@
 final RegExp _emailRe = RegExp(r'^[\w.+-]+@[\w-]+(\.[\w-]+)+$');
 
 class Validators {
-  static String? requiredText(String? v, String label,
-      {int min = 1, int max = 200}) {
+  static String? requiredText(
+    String? v,
+    String label, {
+    int min = 1,
+    int max = 200,
+  }) {
     final s = (v ?? '').trim();
     if (s.length < min) {
-      return min <= 1 ? 'Inserisci $label' : '$label troppo corto (minimo $min caratteri)';
+      return min <= 1
+          ? 'Inserisci $label'
+          : '$label troppo corto (minimo $min caratteri)';
     }
     if (s.length > max) {
       return '$label troppo lungo (massimo $max caratteri)';

@@ -40,15 +40,17 @@ class _JobApplicationsScreenState extends State<JobApplicationsScreen> {
       });
     }
     try {
-      final data = await context
-          .read<ApiClient>()
-          .get('/api/jobs/${widget.job.id}/applications');
+      final data = await context.read<ApiClient>().get(
+        '/api/jobs/${widget.job.id}/applications',
+      );
       final map = Map<String, dynamic>.from(data as Map);
       if (!mounted) return;
       setState(() {
         _job = Job.fromJson(Map<String, dynamic>.from(map['job'] as Map));
         _applications = (map['applications'] as List)
-            .map((e) => Application.fromJson(Map<String, dynamic>.from(e as Map)))
+            .map(
+              (e) => Application.fromJson(Map<String, dynamic>.from(e as Map)),
+            )
             .toList();
         _loading = false;
       });
@@ -88,8 +90,9 @@ class _JobApplicationsScreenState extends State<JobApplicationsScreen> {
           children: [
             Text(
               job.title,
-              style: theme.textTheme.titleLarge
-                  ?.copyWith(fontWeight: FontWeight.w700),
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+              ),
             ),
             const SizedBox(height: 8),
             Wrap(
@@ -101,7 +104,10 @@ class _JobApplicationsScreenState extends State<JobApplicationsScreen> {
                 InfoPill(
                   icon: Icons.people_alt_outlined,
                   label: Fmt.plural(
-                      applications.length, 'candidatura', 'candidature'),
+                    applications.length,
+                    'candidatura',
+                    'candidature',
+                  ),
                 ),
               ],
             ),
@@ -130,8 +136,7 @@ class _JobApplicationsScreenState extends State<JobApplicationsScreen> {
         EmptyState(
           icon: Icons.inbox_outlined,
           title: 'Nessuna candidatura',
-          message:
-              'Quando qualcuno si candiderà a questo annuncio lo troverai qui, con il curriculum allegato.',
+          message: 'Quando qualcuno si candiderà a questo annuncio lo troverai qui, con il curriculum allegato.',
         ),
       ];
     }
@@ -184,29 +189,35 @@ class _CandidateCard extends StatelessWidget {
                       application.fullName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.titleSmall
-                          ?.copyWith(fontWeight: FontWeight.w700),
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Text(
                       application.email,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.bodySmall
-                          ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
+                      ),
                     ),
                     const SizedBox(height: 6),
                     Row(
                       children: [
-                        Icon(Icons.picture_as_pdf_outlined,
-                            size: 14, color: theme.colorScheme.primary),
+                        Icon(
+                          Icons.picture_as_pdf_outlined,
+                          size: 14,
+                          color: theme.colorScheme.primary,
+                        ),
                         const SizedBox(width: 4),
                         Text(
                           application.cvName,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.labelSmall
-                              ?.copyWith(color: theme.colorScheme.primary),
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: theme.colorScheme.primary,
+                          ),
                         ),
                       ],
                     ),
@@ -219,12 +230,15 @@ class _CandidateCard extends StatelessWidget {
                 children: [
                   Text(
                     Fmt.date(application.createdAt),
-                    style: theme.textTheme.labelSmall
-                        ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
                   const SizedBox(height: 4),
-                  Icon(Icons.chevron_right,
-                      color: theme.colorScheme.onSurfaceVariant),
+                  Icon(
+                    Icons.chevron_right,
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
                 ],
               ),
             ],

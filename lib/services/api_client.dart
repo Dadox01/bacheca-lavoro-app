@@ -76,8 +76,7 @@ class ApiClient {
     http.Response res;
     try {
       final streamed = await _client.send(request).timeout(ApiConfig.timeout);
-      res = await http.Response.fromStream(streamed)
-          .timeout(ApiConfig.timeout);
+      res = await http.Response.fromStream(streamed).timeout(ApiConfig.timeout);
     } on TimeoutException {
       throw const ApiException(0, _networkMessage);
     } on SocketException {
@@ -119,8 +118,7 @@ class ApiClient {
     http.Response res;
     try {
       final streamed = await _client.send(req).timeout(ApiConfig.timeout);
-      res = await http.Response.fromStream(streamed)
-          .timeout(ApiConfig.timeout);
+      res = await http.Response.fromStream(streamed).timeout(ApiConfig.timeout);
     } on TimeoutException {
       throw const ApiException(0, _networkMessage);
     } on SocketException {
