@@ -39,6 +39,35 @@ flutter devices                               # elenco dei dispositivi disponibi
 Il progetto include le cartelle `ios/`, `android/` e `macos/`; la versione macOS serve
 solo per provare l'app comodamente dal computer, il target è lo smartphone.
 
+## Prova su iPhone reale
+
+Serve un Apple ID (anche gratuito) per firmare l'app, e iPhone + Mac sulla stessa Wi-Fi.
+
+1. iPhone: **Impostazioni → Privacy e sicurezza → Modalità sviluppatore** → attiva e riavvia;
+   collegare l'iPhone al Mac e rispondere *Consenti* a "Fidati di questo computer".
+2. Xcode → **Settings → Accounts → +** con il proprio Apple ID → *Manage Certificates…* →
+   **+ → Apple Development** (crea il certificato di sviluppo).
+3. Nel progetto: aprire `ios/Runner.xcworkspace` in Xcode → target **Runner** →
+   *Signing & Capabilities* → spuntare *Automatically manage signing* e scegliere il proprio
+   **Team**; se l'identificativo è già usato da un altro account, cambiarlo
+   (es. `it.cognome.bachecaLavoro`).
+4. Avvio sulla rete locale, con l'IP del Mac (`ipconfig getifaddr en0`):
+
+   ```bash
+   cd app
+   flutter run -d <id-iphone> --dart-define=API_BASE_URL=http://192.168.1.9:8080
+   ```
+
+5. Al primo avvio iOS mostra *"consentire all'app di trovare e connettersi a dispositivi
+   sulla rete locale?"*: rispondere **Consenti** (la descrizione è in `Info.plist`, chiave
+   `NSLocalNetworkUsageDescription`). Senza questo permesso l'app non raggiunge il server.
+6. Con un Apple ID gratuito la firma scade dopo **7 giorni**: per riprovare basta rilanciare
+   `flutter run` dal Mac.
+
+Se la connessione non parte: verificare da Safari sull'iPhone che
+`http://192.168.1.9:8080/api/health` risponda, che il Mac non vada in stop (il server si
+ferma) e che la Wi-Fi non sia una rete "ospiti" con isolamento dei client.
+
 ## Gli scenari del compito
 
 ### S1 — Pubblicare un annuncio (R1, R2, R4)

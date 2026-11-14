@@ -36,6 +36,10 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<!-- iOS chiede il permesso "Rete locale" la prima volta che l'app contatta
+	     il computer del server: questa descrizione è quella mostrata nel prompt. -->
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Serve a contattare il server della bacheca sul computer in rete locale.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
