@@ -63,6 +63,17 @@ Serve un Apple ID (anche gratuito) per firmare l'app, e iPhone + Mac sulla stess
    `NSLocalNetworkUsageDescription`). Senza questo permesso l'app non raggiunge il server.
 6. Con un Apple ID gratuito la firma scade dopo **7 giorni**: per riprovare basta rilanciare
    `flutter run` dal Mac.
+7. Un'app iOS in **debug** si avvia solo con `flutter run`/Xcode attaccati (limite di iOS 14+:
+   "Cannot create a FlutterEngine instance in debug mode without Flutter tooling"). Per averla
+   sul telefono senza cavo, quindi anche per una demo in aula:
+
+   ```bash
+   flutter build ios --profile --dart-define=API_BASE_URL=http://192.168.1.9:8080
+   xcrun devicectl device install app --device <id-iphone> build/ios/Profile-iphoneos/Runner.app
+   ```
+
+   Poi si apre dall'icona sul telefono. Se cambia l'IP del Mac va ricostruita con il nuovo
+   `--dart-define`.
 
 Se la connessione non parte: verificare da Safari sull'iPhone che
 `http://192.168.1.9:8080/api/health` risponda, che il Mac non vada in stop (il server si
